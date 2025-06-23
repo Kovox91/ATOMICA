@@ -8,12 +8,12 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=128G
 
-~/.conda/envs/atomicaenv/bin/torchrun train.py \
+atomicaenv/bin/torchrun train.py \
     --train_set datasets/binder_train.pkl \
     --valid_set datasets/binder_valid.pkl \
     --task binary_classifier \
-    --gpu 0 \
-    --num_workers 8 \
+    --gpu -1 \
+    --num_workers 1 \
     --lr 1e-4 \
     --max_epoch 50 \
     --shuffle \
@@ -27,6 +27,6 @@
     --fragmentation_method PS_300 \
     --global_message_passing \
     --save_dir model_checkpoints \
-    --pretrain_weights path/to/pretrained/ATOMICA/weights \
-    --pretrain_config path/to/pretrained/ATOMICA/config \
+    --pretrain_weights pretrained_model/pretrain_model_weights.pt \
+    --pretrain_config pretrained_model/pretrain_model_config.json \
     --run_name ATOMICA-Ligand

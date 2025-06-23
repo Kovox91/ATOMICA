@@ -8,9 +8,20 @@ from trainers.abs_trainer import Trainer
 import torch
 import json
 
+def parse_args():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model_ckpt', type=str, default=None, help='path of the model ckpt to load')
+    parser.add_argument('--model_config', type=str, default=None, help='path of the model config to load')
+    parser.add_argument('--model_weights', type=str, default=None, help='path of the model weights to load')
+    parser.add_argument("--output_path", type=str, required=True, help='Path to save the output embeddings, should be a .pkl file')
+    parser.add_argument("--data_path", type=str, required=True, help='Path to the data file either in json or pickle format')
+    parser.add_argument("--batch_size", type=int, default=4)
+    return parser.parse_args()
+
 def main(args):
     if args.model_ckpt:
-        model = torch.load(args.model_ckpt)
+        model = torch.load(args.model_ckpt, map_location=torch.device('cpu'))
     elif args.model_config and args.model_weights:
         with open(args.model_config, "r") as f:
             model_config = json.load(f)
@@ -30,7 +41,7 @@ def main(args):
     
     if isinstance(model, DenoisePretrainModel) and not isinstance(model, PredictionModel):
         model = PredictionModel.load_from_pretrained(args.model_ckpt)
-    model = model.to("cuda")
+    model = model.to("cpu")
     batch_size = args.batch_size
 
     embeddings = []
@@ -46,7 +57,7 @@ def main(args):
             else:
                 batch_items = [item["data"] for item in items]
             batch = PDBDataset.collate_fn(batch_items)
-            batch = Trainer.to_device(batch, "cuda")
+            batch = Trainer.to_device(batch, "cpu")
             return_obj = model.infer(batch)
             
             curr_block = 0
@@ -95,16 +106,7 @@ def main(args):
     print(f"Saving processed data to {args.output_path}. Total of {len(embeddings)} items.")
 
 
-def parse_args():
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--model_ckpt', type=str, default=None, help='path of the model ckpt to load')
-    parser.add_argument('--model_config', type=str, default=None, help='path of the model config to load')
-    parser.add_argument('--model_weights', type=str, default=None, help='path of the model weights to load')
-    parser.add_argument("--output_path", type=str, required=True, help='Path to save the output embeddings, should be a .pkl file')
-    parser.add_argument("--data_path", type=str, required=True, help='Path to the data file either in json or pickle format')
-    parser.add_argument("--batch_size", type=int, default=4)
-    return parser.parse_args()
+
 
 if __name__ == "__main__":
     args = parse_args()

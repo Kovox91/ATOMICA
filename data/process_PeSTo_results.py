@@ -8,8 +8,8 @@ import argparse
 import pickle
 import os
 import pandas as pd
-from .dataset import blocks_to_data
-from .converter.pdb_to_list_blocks import atoms_array_to_blocks, get_residues
+from data.dataset import blocks_to_data
+from data.converter.pdb_to_list_blocks import atoms_array_to_blocks, get_residues
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Process protein structures based on B-factor cutoff.")
