@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# ENVNAME=atomicaenv
-# conda create -n $ENVNAME python=3.9 -y
-# source activate $ENVNAME
+ENVNAME=atomicaenv
+conda create -n $ENVNAME python=3.9 -y
+conda activate $ENVNAME
 conda install numpy==1.26.4 -y
 pip3 install torch==2.1.1+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
 pip3 install torch_scatter torch_cluster --find-links https://pytorch-geometric.com/whl/torch-2.1.1+cu118.html
