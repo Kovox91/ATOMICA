@@ -27,7 +27,7 @@ pretrain
 run_logs
 
 testing_scripts
-scripts
+
 
 trainers/deprecated
 models/deprecated
