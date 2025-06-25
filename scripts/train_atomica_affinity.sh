@@ -18,7 +18,7 @@
     --max_n_vertex_per_gpu 256 \
     --max_n_vertex_per_item 256 \
     --global_message_passing \
-    --save_dir ../../../06_models/model_checkpoints \
+    --save_dir ../../../data/06_models/model_checkpoints \
     --pretrain_weights ../../../data/01_raw/pretrain_model_weights.pt \
     --pretrain_config ../../../data/01_raw/pretrain_model_config.json \
     --run_name ATOMICA-Affinity \
