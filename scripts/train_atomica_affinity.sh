@@ -3,8 +3,8 @@
 
 
 ~/miniconda3/envs/atomicaenv/bin/torchrun --nnodes=1 --nproc_per_node=1 --standalone train.py \
-    --train_set ../../../data/05_model_input/train_set.pkl \
-    --valid_set ../../../data/05_model_input/valid_set.pkl \
+    --train_set ../../../data/05_model_input/train_items.pkl \
+    --valid_set ../../../data/05_model_input/test_items.pkl \
     --task PDBBind \
     --num_workers 1 \
     --gpus -1 \
