@@ -9,7 +9,7 @@
     --num_workers 1 \
     --gpus -1 \
     --lr 1e-4 \
-    --max_epoch 3 \
+    --max_epoch 10 \
     --atom_hidden_size 32 \
     --block_hidden_size 32 \
     --n_layers 4 \
