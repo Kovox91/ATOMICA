@@ -4,7 +4,7 @@
 
 ~/miniconda3/envs/atomicaenv/bin/torchrun --nnodes=1 --nproc_per_node=1 --standalone train.py \
     --train_set ../../../data/05_model_input/train_items.pkl \
-    --valid_set ../../../data/05_model_input/test_items.pkl \
+    --valid_set ../../../data/05_model_input/val_items.pkl \
     --task PDBBind \
     --num_workers 1 \
     --gpus -1 \
@@ -15,7 +15,7 @@
     --n_layers 4 \
     --edge_size 32 \
     --k_neighbors 8 \
-    --max_n_vertex_per_gpu 512 \
+    --max_n_vertex_per_gpu 256 \
     --max_n_vertex_per_item 256 \
     --global_message_passing \
     --save_dir ../../../06_models/model_checkpoints \
